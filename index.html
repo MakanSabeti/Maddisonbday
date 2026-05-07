@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: sans-serif;
+    }
+
+    .page {
+      width: 100vw;
+      height: 100vh;
+      background-size: contain;         /* ✅ zoomed OUT */
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    button {
+      margin-bottom: 30px;
+      padding: 14px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="page" class="page">
+    <button id="nextBtn"></button>
+  </div>
+
+  <script>
+    // ✅ Images in order
+    const images = [
+      "images/01.png",
+      "images/02.png",
+      "images/03.png",
+      "images/04.png",
+      "images/05.png",
+      "images/06.png",
+      "images/07.png",
+      "images/08.png"
+    ];
+
+    // ✅ Button text per page
+    const buttonLabels = [
+      "Traps so heavy 💫",
+      "I feel like I'm holdin' up a mountain",
+      "Everywhere that I go ✨",
+      "it's a gun show 💖",
+      "I'm surrounded 🎂",
+      "Bust down, bust down, bust down, bust down",
+      "Bust down, bitch 💖",
+      "I'm drownin' 🎉"
+    ];
+
+    let index = 0;
+
+    const page = document.getElementById("page");
+    const button = document.getElementById("nextBtn");
+
+    function showImage() {
+      page.style.backgroundImage = `url('${images[index]}')`;
+      button.textContent = buttonLabels[index] || "Next 💫";
+    }
+
+    function fireConfetti() {
+      confetti({
+        particleCount: 180,
+        spread: 120,
+        origin: { y: 0.7 }
+      });
+    }
+
+    button.addEventListener("click", () => {
+      fireConfetti();
+      index++;
+
+      if (index >= images.length) {
+        button.style.display = "none"; // hide button at end
+        return;
+      }
+
+      showImage();
+    });
+
+    // Initial render
+    showImage();
+  </script>
+
+</body>
+</html>
